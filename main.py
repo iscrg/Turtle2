@@ -1,3 +1,9 @@
+'''
+Fisher D. - 48%
+Fedyakin D. - 55%
+Popov I. - 40%
+'''
+
 import turtle
 
 turtle.speed(0)
@@ -18,24 +24,32 @@ def draw_hexagon(side_len, color):
     turtle.lt(90)
 
 
-def get_color_choice():
-    color_in = input()
-    if color_in.lower() == 'красный':
-        color_out = 'red'
-    elif color_in.lower() == 'синий':
-        color_out = 'blue'
-    elif color_in.lower() == 'зеленый':
-        color_out = 'green'
-    elif color_in.lower() == 'желтый':
-        color_out = 'yellow'
-    elif color_in.lower() == 'оранжевый':
-        color_out = 'orange'
-    elif color_in.lower() == 'пурпурный':
-        color_out = 'purple'
-    elif color_in.lower() == 'розовый':
-        color_out = 'pink'
+def get_color_choice(color_num):
+    if color_num == 1:
+        num = 'first'
+    else:
+        num = 'second'
 
-    return color_out
+    color_in = input(f'Type in the {num} color: ')
+    color_in = color_in.lower()
+
+    if color_in == 'красный':
+        return 'red'
+    if color_in == 'синий':
+        return 'blue'
+    if color_in == 'зеленый':
+        return 'green'
+    if color_in == 'желтый':
+        return 'yellow'
+    if color_in == 'оранжевый':
+        return 'orange'
+    if color_in == 'пурпурный':
+        return 'purple'
+    if color_in == 'розовый':
+        return 'pink'
+
+    print('Incorrect color!')
+    return get_color_choice(color_num)
 
 
 def side_len(n):
@@ -43,21 +57,38 @@ def side_len(n):
     return d / (3 ** 0.5)
 
 
-n = int(input())
-color = get_color_choice()
+def main():
+    numbers = int(input('Type in the number of hexagons: '))
+    color_1 = get_color_choice(1)
+    color_2 = get_color_choice(2)
 
-for i in range(n):
-    s = side_len(n)
-    for _ in range(n):
-        draw_hexagon(s, color)
-        x = turtle.xcor()
+    for i in range(numbers):
+        s = side_len(numbers)
+        for j in range(numbers):
+            if i % 4 in [0, 1]:
+                if j % 2 == 0:
+                    color = color_1
+                else:
+                    color = color_2
+            else:
+                if j % 2 == 0:
+                    color = color_2
+                else:
+                    color = color_1
+
+            draw_hexagon(s, color)
+            x = turtle.xcor()
+            y = turtle.ycor()
+            turtle.goto(x + 500 // numbers, y)
+
         y = turtle.ycor()
-        turtle.goto(x + 500 // n, y)
+        if i % 2 != 0:
+            turtle.goto(0, y - s - (500 // numbers / (2 * 3 ** 0.5)))
+        else:
+            turtle.goto(-((500 // numbers) / 2), y - s - (500 // numbers / (2 * 3 ** 0.5)))
 
-    y = turtle.ycor()
-    if i % 2 != 0:
-        turtle.goto(0, y - s - (500 // n / (2 * 3 ** 0.5)))
-    else:
-        turtle.goto(-((500 // n) / 2), y - s - (500 // n / (2 * 3 ** 0.5)))
+    turtle.done()
 
-turtle.done()
+
+if __name__ == '__main__':
+    main()

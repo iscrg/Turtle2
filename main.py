@@ -10,6 +10,14 @@ turtle.speed(0)
 
 
 def draw_hexagon(side_len, color):
+    """
+    The function draws a hexagon.
+
+    :param side_len: hexagon edge length
+    :param color: hexagon fill color
+    :return: None
+    """
+
     turtle.pu()
     turtle.rt(90)
     turtle.pd()
@@ -24,43 +32,64 @@ def draw_hexagon(side_len, color):
     turtle.lt(90)
 
 
-def get_color_choice(color_num):
-    if color_num == 1:
-        num = 'first'
-    else:
-        num = 'second'
+def get_color_choice(color_in):
+    """
+    The function converts the name of the color from Russian into the necessary ones for the turtle.
+    Color list: красный, синий, зеленый, желтый, оранжевый, пурпурный, розовый.
+    The register does not matter.
 
-    color_in = input(f'Type in the {num} color: ')
+    :param color_in: color in russian
+    :return: color for turtle
+    """
+
     color_in = color_in.lower()
 
     if color_in == 'красный':
         return 'red'
+
     if color_in == 'синий':
         return 'blue'
+
     if color_in == 'зеленый':
         return 'green'
+
     if color_in == 'желтый':
         return 'yellow'
+
     if color_in == 'оранжевый':
         return 'orange'
+
     if color_in == 'пурпурный':
         return 'purple'
+
     if color_in == 'розовый':
         return 'pink'
 
-    print('Incorrect color!')
-    return get_color_choice(color_num)
+    return None
 
 
 def side_len(n):
+    """
+    The function calculates the length of an edge of a hexagon.
+
+    :param n: number of hexagons
+    :return: the length of an edge of a hexagon
+    """
     d = 500 // n
     return d / (3 ** 0.5)
 
 
 def main():
     numbers = int(input('Type in the number of hexagons: '))
-    color_1 = get_color_choice(1)
-    color_2 = get_color_choice(2)
+
+    color_1 = None
+    color_2 = None
+    while None in [color_1, color_2]:
+        color_1 = input('Type in the first color: ')
+        color_2 = input('Type in the second color: ')
+
+        color_1 = get_color_choice(color_1)
+        color_2 = get_color_choice(color_2)
 
     for i in range(numbers):
         s = side_len(numbers)

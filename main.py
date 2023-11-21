@@ -1,7 +1,7 @@
 '''
-Fisher D. - 48%
-Fedyakin D. - 55%
-Popov I. - 40%
+Fisher D. - 100
+Fedyakin D. - 100
+Popov I. - 100
 '''
 
 import turtle
@@ -91,6 +91,8 @@ def main():
         color_1 = get_color_choice(color_1)
         color_2 = get_color_choice(color_2)
 
+    step = 500 // numbers
+
     for i in range(numbers):
         s = side_len(numbers)
         for j in range(numbers):
@@ -108,13 +110,12 @@ def main():
             draw_hexagon(s, color)
             x = turtle.xcor()
             y = turtle.ycor()
-            turtle.goto(x + 500 // numbers, y)
+            turtle.goto(x + step, y)
 
-        y = turtle.ycor()
         if i % 2 != 0:
-            turtle.goto(0, y - s - (500 // numbers / (2 * 3 ** 0.5)))
+            turtle.goto(0, y - s - (step / (2 * 3 ** 0.5)))
         else:
-            turtle.goto(-((500 // numbers) / 2), y - s - (500 // numbers / (2 * 3 ** 0.5)))
+            turtle.goto(-(step / 2), y - s - (step / (2 * 3 ** 0.5)))
 
     turtle.done()
 
